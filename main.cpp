@@ -3,26 +3,45 @@
 
 using namespace std;
 
-string outcomes[3] = {"stone", "scissors", "paper"};
+string outcomes[3] = {"Paper", "Scissors", "Stone"};
 
-string calculateOutcome(int a) {
-	srand(time(NULL));
+void calculateOutcome(int a) {
+  srand(time(NULL));
 
-	int pc = rand() % 3 + 1;
+  int number = rand() % 3 + 1;
 
-	if (a == pc) {
-		return "draw";
-	}
+  cout << "The computer chooses " << outcomes[number - 1] << "." << endl;
 
-	if (pc == 3 && a == 1 || a > pc) {
-		return "player win";
-	}
+  if (number == a) {
+    cout << "The match is a draw!" << endl;
+  } else if (number == 1 && a == 3) {
+    cout << "The machine wins!" << endl;
+  } else if (a > number || a == 1 && number == 3) {
+    cout << "The player wins." << endl;
+  } else {
+    cout << "The machine wins!" << endl;
+  }
+}
 
-	return "player lost";
+void showOptions() {
+  cout << "Choose your weapon." << endl;
+  cout << "1 for Paper, 2 for Scissors, 3 for Stone, 4 to quit." << endl;
 }
 
 int main() {
 
-	std::cout << calculateOutcome(2) << '\n';
-	return 0;
+  int input;
+
+  cout << "Welcome to Rock, Paper, Scissors" << endl;
+
+  while (input != 4) {
+    showOptions();
+    cin >> input;
+    cout << "You chose " << outcomes[input - 1] << "." << endl;
+    calculateOutcome(input);
+  }
+
+  cout << "You quit the game." << endl;
+
+  return 0;
 }
